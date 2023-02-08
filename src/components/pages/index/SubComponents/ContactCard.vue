@@ -15,12 +15,23 @@
     .actions
       .edit
         button Edit
-      .delete
+      .delete(v-if="!clicked_delete" @click="clicked_delete = true")
         button Delete
+      .confirm-delete(v-if="clicked_delete")
+        button(@click="clicked_delete = false").cancel Cancel
+        button.confirm(@click="delete_contact(contact_data.id)") Confirm
 </template>
 <script>
 export default {
-  props: ['contact_data']
+  props: ['contact_data'],
+  data: () => ({
+    clicked_delete: false
+  }),
+  methods: {
+    delete_contact(id){
+      this.$store.dispatch('deleteContact', id)
+    }
+  }
 }
 </script>
 <style scoped lang="sass">
@@ -67,10 +78,21 @@ export default {
       width: 50px
       height: 24px
       border-radius: 10px
+    .edit
+      margin-right: 8px
     .delete
       button
         background-color: red
         color: white
-    .edit
-      margin-right: 8px
+    .confirm-delete
+      button
+        width: 60px
+        height: 24px
+        border-radius: 10px
+        padding: 3px
+      .cancel
+        margin-right: 8px
+      .confirm
+        background-color: red
+        color: white
 </style>
