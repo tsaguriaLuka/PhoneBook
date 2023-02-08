@@ -57,6 +57,9 @@ export const mutations = {
         state.contacts_data = newArr.filter((contact) =>
             contact.phone_number.includes(inputValue)
         )
+    },
+    create_new_contact(state, newContact) {
+        state.contacts_data.push(newContact)
     }
 }
 
@@ -86,5 +89,10 @@ export const actions = {
     },
     findContact({commit}, inputValue) {
         commit('find_contact', inputValue)
+    },
+    createNewContact({commit}, newContact) {
+        this.$axios.post(`${process.env.contacts_api}/`, newContact).then((response) => {
+            commit('create_new_contact', response.data)
+        })
     }
 }

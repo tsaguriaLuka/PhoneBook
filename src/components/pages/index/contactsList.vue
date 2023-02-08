@@ -1,6 +1,8 @@
 <template lang="pug">
   .contacts-list
-    PagesIndexSubComponentsContactsMenu
+    .list-header
+      PagesIndexSubComponentsContactsMenu
+      PagesIndexSubComponentsCreateContact
     .contact-cards
       PagesIndexSubComponentsContactCard(v-for="contact in contacts" :key="contact.id" :contact_data="contact")
 </template>
@@ -20,6 +22,10 @@ export default {
   margin: 30px
   padding: 30px
   border-radius: 30px
+  .list-header
+    display: flex
+    align-items: center
+    justify-content: space-between
   .contact-cards
     display: grid
     grid-template-columns: repeat(4, 1fr)
