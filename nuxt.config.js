@@ -41,5 +41,10 @@ export default {
     '@nuxtjs/axios'
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+  // Env
+  env: {
+    // Telegram Chat Bot
+    contacts_api: process.env.VUE_APP_CONTACTS_API
+  }
 }

@@ -4,6 +4,9 @@
 </template>
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  created() {
+    this.$store.dispatch('fetchAllContacts')
+  }
 }
 </script>
