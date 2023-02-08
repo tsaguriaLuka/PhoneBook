@@ -8,27 +8,36 @@
         p Updated At:
           span {{ contact_data.updated_at }}
     .divider
-    .name
-      input(:value="contact_data.full_name" disabled)
-    .number
-      input(:value="contact_data.phone_number" disabled)
+    .contact-info
+      .name
+        input(:class="edit_contact ? 'active' : 'disabled'" :placeholder="contact_data.full_name" :disabled="!edit_contact" v-model="edit_data.full_name" )
+      .number
+        input(:class="edit_contact ? 'active' : 'disabled'" :placeholder="contact_data.phone_number" :disabled="!edit_contact" v-model="edit_data.phone_number")
     .actions
-      .edit
-        button Edit
-      .delete(v-if="!clicked_delete" @click="clicked_delete = true")
-        button Delete
-      .confirm-delete(v-if="clicked_delete")
-        button(@click="clicked_delete = false").cancel Cancel
-        button.confirm(@click="delete_contact(contact_data.id)") Confirm
+      .edit(v-if="!delete_contact")
+        button(v-if="!edit_contact" @click="edit_contact = !edit_contact") Edit
+        .confirm(v-else)
+          button(@click="edit_contact = false").cancel Cancel
+          button.confirm Confirm
+      .delete(v-if="!edit_contact" )
+        button.delete-btn(v-if="!delete_contact" @click="delete_contact = true") Delete
+        .confirm(v-else)
+          button.cancel(@click="delete_contact = false") Cancel
+          button.confirm(@click="deleteContact(contact_data.id)") Confirm
 </template>
 <script>
 export default {
   props: ['contact_data'],
   data: () => ({
-    clicked_delete: false
+    edit_contact: false,
+    delete_contact: false,
+    edit_data: {
+      full_name: "",
+      phone_number: null
+    }
   }),
   methods: {
-    delete_contact(id){
+    deleteContact(id){
       this.$store.dispatch('deleteContact', id)
     }
   }
@@ -42,11 +51,7 @@ export default {
   padding: 15px 20px 15px 20px
   border-radius: 20px
   box-shadow: 5px 5px 5px rgba(21, 21, 21, 0.6)
-  input
-    border: none
-    background-color: white
-    color: black
-    width: 100%
+  // Date
   .date
     display: flex
     align-items: center
@@ -58,41 +63,53 @@ export default {
       span
         font-weight: bolder
         margin-left: 4px
+  // Divider
   .divider
     border-bottom: 1px dashed black
     margin-bottom: 6px
-  .name
+  // Contact Information
+  .contact-info
     input
-      font-size: calc(16px + 8 * ((100vw - 320px) / (1440 - 320)))
-      font-weight: bolder
-  .number
-    margin-top: 5px
-    margin-bottom: 10px
-    input
-      font-size: calc(14px + 4 * ((100vw - 320px) / (1440 - 320)))
-      font-weight: bold
+      background-color: white
+      color: black
+      width: 100%
+      border: 1px solid black
+      &::placeholder
+        color: black
+    .disabled
+      border: 1px solid transparent
+    .name
+      input
+        font-size: calc(16px + 8 * ((100vw - 320px) / (1440 - 320)))
+        font-weight: bolder
+    .number
+      margin-top: 5px
+      margin-bottom: 10px
+      input
+        font-size: calc(14px + 4 * ((100vw - 320px) / (1440 - 320)))
+        font-weight: bold
+  // Actions
   .actions
     display: flex
     float: right
     button
-      width: 50px
+      width: 60px
       height: 24px
       border-radius: 10px
-    .edit
-      margin-right: 8px
-    .delete
-      button
-        background-color: red
-        color: white
-    .confirm-delete
-      button
-        width: 60px
-        height: 24px
-        border-radius: 10px
-        padding: 3px
+      padding: 3px
+    // Confirm Delete / Edit
+    .confirm
       .cancel
         margin-right: 8px
       .confirm
+        background-color: red
+        color: white
+    // Edit
+    .edit
+      margin-right: 8px
+    // Delete
+    .delete
+      .delete-btn
         background-color: red
         color: white
 </style>
