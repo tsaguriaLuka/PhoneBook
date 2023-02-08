@@ -3,10 +3,10 @@
     .date
       .created
         p Created At:
-          span {{ contact_data.created_at}}
+          span {{ contact_data.created_at.substring(0, 10) }}
       .updated
         p Updated At:
-          span {{ contact_data.updated_at }}
+          span {{ contact_data.updated_at.substring(0, 10) }}
     .divider
     .contact-info
       .name

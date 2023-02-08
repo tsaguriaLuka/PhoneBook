@@ -14,8 +14,8 @@ export const mutations = {
         contacts.forEach(contact => {
             const contactSample = {
                 id: contact.id,
-                updated_at: contact.updated_at.substring(0, 10),
-                created_at: contact.created_at.substring(0, 10),
+                updated_at: contact.updated_at,
+                created_at: contact.created_at,
                 full_name: contact.full_name,
                 phone_number: contact.phone_number
             }
@@ -33,8 +33,8 @@ export const mutations = {
                 const contactIndex = newArr.indexOf(contact)
                 newArr[contactIndex] = {
                     id: data.id,
-                    updated_at: data.updated_at.substring(0, 10),
-                    created_at: data.created_at.substring(0, 10),
+                    updated_at: data.updated_at,
+                    created_at: data.created_at,
                     full_name: data.full_name,
                     phone_number: data.phone_number
                 }
