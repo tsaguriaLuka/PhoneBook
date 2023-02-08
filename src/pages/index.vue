@@ -1,9 +1,9 @@
 <template lang="pug">
-  h1.red Hello World
+  .index-page
+    PagesIndexContactsList
 </template>
 <script>
 export default {
   name: 'IndexPage'
 }
 </script>
-<style scoped lang="sass"></style>

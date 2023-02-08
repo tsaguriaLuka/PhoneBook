@@ -1,13 +1,11 @@
 <template lang="pug">
   .default-layout
     GeneralAppHeader
-    .content-container
-      nuxt
+    nuxt
 </template>
-<style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  transition: all 0.2s;
-}
+<style lang="sass">
+*
+  padding: 0
+  margin: 0
+  transition: all 0.2s
 </style>
