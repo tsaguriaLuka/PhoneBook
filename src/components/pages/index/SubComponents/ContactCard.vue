@@ -3,21 +3,26 @@
     .date
       .created
         p Created At:
-          span 08.02.2023
+          span {{ contact_data.created_at}}
       .updated
         p Updated At:
-          span 08.02.2023
+          span {{ contact_data.updated_at }}
     .divider
     .name
-      input(value="Luka Tsaguria" disabled)
+      input(:value="contact_data.full_name" disabled)
     .number
-      input(value="+380930329810" disabled)
+      input(:value="contact_data.phone_number" disabled)
     .actions
       .edit
         button Edit
       .delete
         button Delete
 </template>
+<script>
+export default {
+  props: ['contact_data']
+}
+</script>
 <style scoped lang="sass">
 .card
   width: 240px
