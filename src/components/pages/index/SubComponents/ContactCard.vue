@@ -12,13 +12,13 @@
       .name
         input(:class="edit_contact ? 'active' : 'disabled'" :placeholder="contact_data.full_name" :disabled="!edit_contact" v-model="edit_data.full_name" )
       .number
-        input(:class="edit_contact ? 'active' : 'disabled'" :placeholder="contact_data.phone_number" :disabled="!edit_contact" v-model="edit_data.phone_number")
+        input(:class="edit_contact ? 'active' : 'disabled'" type="number" :placeholder="contact_data.phone_number" :disabled="!edit_contact" v-model="edit_data.phone_number")
     .actions
       .edit(v-if="!delete_contact")
         button(v-if="!edit_contact" @click="edit_contact = !edit_contact") Edit
         .confirm(v-else)
-          button(@click="edit_contact = false").cancel Cancel
-          button.confirm Confirm
+          button.cancel(@click="reset_edit") Cancel
+          button.confirm(@click="editContact(contact_data.id)") Confirm
       .delete(v-if="!edit_contact" )
         button.delete-btn(v-if="!delete_contact" @click="delete_contact = true") Delete
         .confirm(v-else)
@@ -36,7 +36,30 @@ export default {
       phone_number: null
     }
   }),
+  mounted() {
+    this.edit_data.full_name = this.contact_data.full_name
+    this.edit_data.phone_number = this.contact_data.phone_number
+  },
   methods: {
+    reset_edit() {
+      this.edit_contact = false
+      this.edit_data.full_name = ''
+      this.edit_data.phone_number = null
+    },
+    editContact(id) {
+      // Recent Date
+      const updatedTime = new Date().toISOString()
+      const updatedContact = {}
+      Object.assign(updatedContact, this.contact_data)
+      // Update Fields
+      updatedContact.full_name = this.edit_data.full_name
+      updatedContact.phone_number = this.edit_data.phone_number
+      updatedContact.updated_at = updatedTime
+      // Update
+      this.$store.dispatch('editContact', { id: id, updatedContact: updatedContact }).then(() => {
+        this.edit_contact = false
+      })
+    },
     deleteContact(id){
       this.$store.dispatch('deleteContact', id)
     }
