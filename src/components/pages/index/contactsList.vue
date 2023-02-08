@@ -1,7 +1,16 @@
 <template lang="pug">
   .contacts-list
-    PagesIndexSubComponentsContactCard(v-for="i in 15")
+    PagesIndexSubComponentsContactCard(v-for="contact in contacts" :key="contact.id" :contact_data="contact")
 </template>
+<script>
+export default {
+  computed: {
+    contacts() {
+      return this.$store.getters.get_contacts
+    }
+  }
+}
+</script>
 <style scoped lang="sass">
 .contacts-list
   display: grid
