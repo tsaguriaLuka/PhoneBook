@@ -38,6 +38,15 @@ export const mutations = {
             }
         })
         state.contacts_data = newArr
+    },
+    sort_data(state, sortType) {
+        sortType === 'to_oldest' ?
+        state.contacts_data = state.contacts_data.sort(
+            (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)
+        ) :
+        state.contacts_data = state.contacts_data.sort(
+            (a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)
+        )
     }
 }
 
@@ -61,5 +70,8 @@ export const actions = {
             commit('edit_contact', response.data)
             alert('Success')
         })
+    },
+    sortData({commit}, sortType) {
+        commit('sort_data', sortType)
     }
 }
