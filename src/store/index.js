@@ -9,6 +9,7 @@ export const getters = {
 
 export const mutations = {
     contacts_data(state, contacts) {
+        state.contacts_data = []
         contacts.forEach(contact => {
             state.contacts_data.push({
                 id: contact.id,
@@ -18,6 +19,9 @@ export const mutations = {
                 phone_number: contact.phone_number
             })
         })
+    },
+    delete_contact(state, id) {
+        state.contacts_data = state.contacts_data.filter((contact) => contact.id !== id)
     }
 }
 
@@ -28,4 +32,12 @@ export const actions = {
             commit('contacts_data', response.data)
         })
     },
+    deleteContact({commit}, id) {
+        this.$axios.delete(`${process.env.contacts_api}/${id}`).then((response) => {
+            if (response.status === 200) {
+                commit('delete_contact', response.data.id)
+                alert('Success')
+            }
+        })
+    }
 }
