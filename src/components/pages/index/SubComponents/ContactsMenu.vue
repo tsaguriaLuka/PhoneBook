@@ -6,16 +6,20 @@
       option(value='to_newest') Oldest to Newest
       option(value='to_oldest') Newest to Oldest
   .find
-    input(placeholder="Find number")
+    input(placeholder="Find number" v-model="find" )
 </template>
 <script>
 export default {
   data: () => ({
-    sort: ''
+    sort: '',
+    find: ''
   }),
   watch: {
     sort() {
       this.$store.dispatch('sortData', this.sort)
+    },
+    find() {
+      this.$store.dispatch('findContact', this.find)
     }
   }
 }

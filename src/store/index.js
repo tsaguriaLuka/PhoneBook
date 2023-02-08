@@ -1,4 +1,5 @@
 export const state = () => ({
+    contacts_data_default: [],
     contacts_data: []
 })
 export const getters = {
@@ -11,13 +12,15 @@ export const mutations = {
     contacts_data(state, contacts) {
         state.contacts_data = []
         contacts.forEach(contact => {
-            state.contacts_data.push({
+            const contactSample = {
                 id: contact.id,
                 updated_at: contact.updated_at.substring(0, 10),
                 created_at: contact.created_at.substring(0, 10),
                 full_name: contact.full_name,
                 phone_number: contact.phone_number
-            })
+            }
+            state.contacts_data.push(contactSample)
+            state.contacts_data_default.push(contactSample)
         })
     },
     delete_contact(state, id) {
@@ -47,6 +50,13 @@ export const mutations = {
         state.contacts_data = state.contacts_data.sort(
             (a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)
         )
+    },
+    find_contact(state, inputValue) {
+        state.contacts_data = state.contacts_data_default
+        const newArr = [...state.contacts_data]
+        state.contacts_data = newArr.filter((contact) =>
+            contact.phone_number.includes(inputValue)
+        )
     }
 }
 
@@ -73,5 +83,8 @@ export const actions = {
     },
     sortData({commit}, sortType) {
         commit('sort_data', sortType)
+    },
+    findContact({commit}, inputValue) {
+        commit('find_contact', inputValue)
     }
 }
