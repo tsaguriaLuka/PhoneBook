@@ -1,10 +1,18 @@
 export const state = () => ({
     contacts_data_default: [],
-    contacts_data: []
+    contacts_data: [],
+    pagination_pages: [],
+    selected_pagination_page: 0
 })
 export const getters = {
     get_contacts(state) {
         return state.contacts_data
+    },
+    get_pagination_pages(state) {
+        return state.pagination_pages
+    },
+    get_selected_pagination_page(state) {
+        return state.selected_pagination_page
     }
 }
 
@@ -59,6 +67,12 @@ export const mutations = {
     },
     create_new_contact(state, newContact) {
         state.contacts_data.push(newContact)
+    },
+    set_pagination_pages(state, pagesCount) {
+        state.pagination_pages = pagesCount
+    },
+    select_pagination_page(state) {
+        state.selected_pagination_page = localStorage.getItem('selected_pagination_page')
     }
 }
 
@@ -94,5 +108,11 @@ export const actions = {
             commit('create_new_contact', response.data)
             alert('Success')
         })
+    },
+    setPaginationPages({commit}, pagesCount) {
+        commit('set_pagination_pages', pagesCount)
+    },
+    selectPaginationPage({commit}) {
+        commit('select_pagination_page')
     }
 }
