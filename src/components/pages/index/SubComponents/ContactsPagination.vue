@@ -7,15 +7,25 @@ export default {
   data: () => ({
     active_button: 0
   }),
+  watch: {
+    pagination_pages() {
+      const currentPaginationPage = this.pagination_pages - 1
+      const localStoragePaginationPage = localStorage.getItem('selected_pagination_page')
+      if ( currentPaginationPage < localStoragePaginationPage) {
+        const shortageCompensation = localStoragePaginationPage - currentPaginationPage
+        this.chose_pagination_page(localStoragePaginationPage - shortageCompensation)
+      }
+    }
+  },
   computed: {
     pagination_pages() {
       return this.$store.getters.get_pagination_pages
-    }
+    },
   },
   methods: {
     chose_pagination_page(i) {
       this.active_button = i
-      localStorage.setItem('selected_pagination_page', (i))
+      localStorage.setItem('selected_pagination_page', i)
       this.$store.dispatch('selectPaginationPage')
     }
   }
