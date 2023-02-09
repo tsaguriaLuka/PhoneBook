@@ -49,14 +49,18 @@ export default {
     editContact(id) {
       // Recent Date
       const updatedTime = new Date().toISOString()
-      const updatedContact = {}
-      Object.assign(updatedContact, this.contact_data)
+      const currentContact = {}
+      Object.assign(currentContact, this.contact_data)
       // Update Fields
-      updatedContact.full_name = this.edit_data.full_name
-      updatedContact.phone_number = this.edit_data.phone_number
-      updatedContact.updated_at = updatedTime
+      currentContact.full_name = this.edit_data.full_name
+      currentContact.phone_number = this.edit_data.phone_number
+      currentContact.updated_at = updatedTime
       // Update
-      this.$store.dispatch('editContact', { id: id, updatedContact: updatedContact }).then(() => {
+      const editContactSample = {
+        id,
+        editedContact: currentContact
+      }
+      this.$store.dispatch('editContact', editContactSample).then(() => {
         this.edit_contact = false
       })
     },

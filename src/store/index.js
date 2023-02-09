@@ -28,10 +28,9 @@ export const mutations = {
     },
     edit_contact(state, data) {
         const newArr = [...state.contacts_data]
-        newArr.forEach(contact => {
+        newArr.forEach((contact,index) => {
             if (contact.id === data.id) {
-                const contactIndex = newArr.indexOf(contact)
-                newArr[contactIndex] = {
+                newArr[index] = {
                     id: data.id,
                     updated_at: data.updated_at,
                     created_at: data.created_at,
@@ -79,7 +78,7 @@ export const actions = {
         })
     },
     editContact({commit}, data) {
-        this.$axios.put(`${process.env.contacts_api}/${data.id}`, data.updatedContact).then(response => {
+        this.$axios.put(`${process.env.contacts_api}/${data.id}`, data.editedContact).then(response => {
             commit('edit_contact', response.data)
             alert('Success')
         })
