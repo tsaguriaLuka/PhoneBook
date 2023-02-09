@@ -2,6 +2,7 @@
   .contacts-list
     .list-header
       PagesIndexSubComponentsContactsMenu
+      PagesIndexSubComponentsContactsPagination
       PagesIndexSubComponentsCreateContact
     .contact-cards
       PagesIndexSubComponentsContactCard(v-for="contact in contacts" :key="contact.id" :contact_data="contact")
