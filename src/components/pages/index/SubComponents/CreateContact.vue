@@ -13,7 +13,14 @@ export default {
   }),
   methods: {
     createNewContact() {
-      this.$store.dispatch('createNewContact', { full_name: this.full_name, phone_number: this.phone_number })
+      const dateNow = new Date().toISOString()
+      const newContactSample = {
+        created_at: dateNow,
+        updated_at: dateNow,
+        full_name: this.full_name,
+        phone_number: this.phone_number
+      }
+      this.$store.dispatch('createNewContact', newContactSample)
     }
   }
 }
