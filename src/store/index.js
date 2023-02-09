@@ -92,6 +92,7 @@ export const actions = {
     createNewContact({commit}, newContact) {
         this.$axios.post(`${process.env.contacts_api}/`, newContact).then((response) => {
             commit('create_new_contact', response.data)
+            alert('Success')
         })
     }
 }
