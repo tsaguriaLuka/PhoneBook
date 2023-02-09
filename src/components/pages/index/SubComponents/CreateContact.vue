@@ -14,13 +14,17 @@ export default {
   methods: {
     createNewContact() {
       const dateNow = new Date().toISOString()
-      const newContactSample = {
-        created_at: dateNow,
-        updated_at: dateNow,
-        full_name: this.full_name,
-        phone_number: this.phone_number
+        if (this.full_name !== '' && this.phone_number !== null) {
+         const newContactSample = {
+          created_at: dateNow,
+          updated_at: dateNow,
+          full_name: this.full_name,
+          phone_number: this.phone_number
+        }
+        this.$store.dispatch('createNewContact', newContactSample)
+      } else {
+        alert('Please check the fields')
       }
-      this.$store.dispatch('createNewContact', newContactSample)
     }
   }
 }

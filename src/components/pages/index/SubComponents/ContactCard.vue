@@ -50,19 +50,23 @@ export default {
       // Recent Date
       const updatedTime = new Date().toISOString()
       const currentContact = {}
-      Object.assign(currentContact, this.contact_data)
-      // Update Fields
-      currentContact.full_name = this.edit_data.full_name
-      currentContact.phone_number = this.edit_data.phone_number
-      currentContact.updated_at = updatedTime
-      // Update
-      const editContactSample = {
-        id,
-        editedContact: currentContact
+      if (this.edit_data.full_name !== '' && this.edit_data.phone_number !== "") {
+        Object.assign(currentContact, this.contact_data)
+        // Update Fields
+        currentContact.full_name = this.edit_data.full_name
+        currentContact.phone_number = this.edit_data.phone_number
+        currentContact.updated_at = updatedTime
+        // Update
+        const editContactSample = {
+          id,
+          editedContact: currentContact
+        }
+        this.$store.dispatch('editContact', editContactSample).then(() => {
+          this.edit_contact = false
+        })
+      } else {
+        alert('Please check the fields')
       }
-      this.$store.dispatch('editContact', editContactSample).then(() => {
-        this.edit_contact = false
-      })
     },
     deleteContact(id){
       this.$store.dispatch('deleteContact', id)
