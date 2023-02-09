@@ -14,7 +14,7 @@ export default {
   methods: {
     createNewContact() {
       const dateNow = new Date().toISOString()
-        if (this.full_name !== '' && this.phone_number !== null) {
+        if (this.full_name !== '' && this.phone_number !== null && this.phone_number !== '') {
          const newContactSample = {
           created_at: dateNow,
           updated_at: dateNow,
